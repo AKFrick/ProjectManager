@@ -9,7 +9,8 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.stage.DirectoryChooser;
 import jdk.nashorn.api.tree.Tree;
-
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
 import java.io.File;
 import java.net.URL;
 import java.util.Arrays;
@@ -18,23 +19,17 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable{
 
-    @FXML
-    private Button myBtn;
+    @FXML private TreeView<String> treeView;
 
-    @FXML
-    private TreeView<String> treeView;
-
-    public void btnClick(){
-        myBtn.setText("Now it work");
-    }
-
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @Override public void initialize(URL location, ResourceBundle resources) {
         treeView.setRoot(getNodesForDirectory(new File("D:\\manager")));
+    }
+    @FXML public void handleMouseClicked(MouseEvent mouseEvent){
+        System.out.println("this works now");
     }
     public TreeItem<String> getNodesForDirectory(File directory) {
         TreeItem<String> root = new TreeItem<>(directory.getName());
+
         for(File f : directory.listFiles()) {
             System.out.println("Loading " + f.getName());
             if(f.isDirectory()) {
